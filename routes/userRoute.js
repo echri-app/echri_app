@@ -1,6 +1,6 @@
 const express = require("express");
 const isAuth = require("../middlewares/passport-setup");
-
+const { registerRules, validator } = require("../middlewares/validator");
 const {
   addUser,
   getUsers,
@@ -10,11 +10,11 @@ const {
   deleteUser,
 
   
-} = require("../controllers/user.controller");
+} = require("../controllers/user.controller")
 
 const Router = express.Router();
 
-Router.post("/addUser", addUser);
+Router.post("/addUser",  registerRules(), validator , addUser);
 Router.get("/getUsers", getUsers);
 Router.post("/login", userLogin);
 Router.get("/:_id", getUser);

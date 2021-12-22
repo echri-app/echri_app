@@ -76,6 +76,12 @@ exports.userLogin = async (req, res) => {
     res.status(400).json({ errors: err });
   }
 };
+/************************Current User **********************/
+
+
+
+
+
 /***************************Edit User *********************/
 
 
