@@ -28,14 +28,13 @@ exports.addUser = async (req, res) => {
 /*************************** Get all user *********************/
 
 exports.getUsers = async (req, res) => {
-  const Users = await User.find();
+  const Users = await User.find().populate("commandes");
 
   try {
     res.status(202).json({ Users });
   } catch (error) {
     console.log("get users failed", error);
     res.status(402).json({ msg: "Fetch users failed" });
-
   }
 };
 
@@ -78,12 +77,7 @@ exports.userLogin = async (req, res) => {
 };
 /************************Current User **********************/
 
-
-
-
-
 /***************************Edit User *********************/
-
 
 exports.editUser = async (req, res) => {
   let { _id } = req.params;
@@ -95,7 +89,6 @@ exports.editUser = async (req, res) => {
     res.status(403).json({ msg: "User update failed" });
   }
 };
-
 
 /***************************  Delete User *********************/
 
@@ -110,3 +103,4 @@ exports.deleteUser = async (req, res) => {
     res.status(402).json({ msg: "User delete failed" });
   }
 };
+

@@ -1,4 +1,5 @@
 const express = require("express");
+const mongoose = require("mongoose");
 const isAuth = require("../middlewares/passport-setup");
 const { registerRules, validator } = require("../middlewares/validator");
 const {
@@ -8,21 +9,20 @@ const {
   getUser,
   editUser,
   deleteUser,
-
-  
-} = require("../controllers/user.controller")
+  addCommande,
+} = require("../controllers/user.controller");
 
 const Router = express.Router();
 
-Router.post("/addUser",  registerRules(), validator , addUser);
 Router.get("/getUsers", getUsers);
+Router.post("/addUser", registerRules(), validator, addUser);
 Router.post("/login", userLogin);
+Router.get("/currentUser", isAuth(), (req, res) => {
+  res.json(req.user);
+});
 Router.get("/:_id", getUser);
 Router.put("/:_id", editUser);
 Router.delete("/:_id", deleteUser);
-
-
-
-Router.get("/currentUser", isAuth(), (req, res) => res.send(req.user));
+// Router.get("/addCommande", addCommande);
 
 module.exports = Router;
